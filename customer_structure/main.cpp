@@ -18,6 +18,8 @@ struct Customer {
 void getInfo(vector<Customer>& customers) {
   Customer newCust;
 
+  // get details from stdin
+
   cout << "Enter customer's name: ";
   while (true) {
     string name;
@@ -89,6 +91,7 @@ void getInfo(vector<Customer>& customers) {
       continue;
     }
 
+    // convert balance to an integer
     int balance;
     try {
       balance = stoi(strBalance);
@@ -98,6 +101,7 @@ void getInfo(vector<Customer>& customers) {
       continue;
     }
 
+    // make sure balance is not negative
     if (balance < 0) {
       cout << "Balance cannot be negative" << endl;
       cout << "Enter balance: ";
@@ -128,6 +132,7 @@ void showInfo(vector<Customer> customers) {
   if (customers.size() == 0) {
     cout << "No customers to display" << endl;
   } else {
+    // loop over each customer and display their details
     for (int i = 0; i < customers.size(); i++) {
       Customer cust = customers.at(i);
 
@@ -180,6 +185,7 @@ int main() {
         string strCustSelection;
         cin >> strCustSelection;
 
+        // convert selection to an integer so it can be used as a index on the customers vector
         int custSelection;
         try {
           custSelection = stoi(strCustSelection);
@@ -188,12 +194,16 @@ int main() {
           continue;
         }
 
+        // make sure the selection is reasonable
+        // i.e. does not exceed the maximum (customers.size()) or the minumum (0)
         if (custSelection >= customers.size() || custSelection < 0) {
           cout << "Invalid selection. Please enter one of the numbers shown" << endl;
           continue;
         }
 
         Customer cust = customers.at(custSelection);
+
+        // get details from stdin
 
         cout << "Enter customer's name: ";
         while (true) {
@@ -266,6 +276,7 @@ int main() {
             continue;
           }
 
+          // convert balance to an integer
           int balance;
           try {
             balance = stoi(strBalance);
@@ -275,6 +286,7 @@ int main() {
             continue;
           }
 
+          // make sure balance is not negative
           if (balance < 0) {
             cout << "Balance cannot be negative" << endl;
             cout << "Enter balance: ";
@@ -305,8 +317,10 @@ int main() {
     } else if (selection == "3") {
       showInfo(customers);
     } else if (selection == "4") {
+      // exit
       break;
     } else {
+      // handle invalid selections
       cout << "Invalid selection" << endl;
       continue;
     };
