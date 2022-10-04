@@ -1,0 +1,8 @@
+{
+	"files.associations": {
+		"*.svg": "html",
+		"iostream": "cpp",
+		"typeindex": "cpp",
+		"typeinfo": "cpp"
+	}
+}
