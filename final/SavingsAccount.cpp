@@ -21,7 +21,7 @@ class SavingsAccount : public BankAccount {
     void monthlyProc() {
       if (numWithdrawsThisMonth > 4) {
         int addedFee = numWithdrawsThisMonth - 4;
-        monthlyServiceCharges += addedFee;
+        BankAccount::monthlyServiceCharges += addedFee;
       }
 
       BankAccount::monthlyProc();
