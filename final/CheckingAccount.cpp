@@ -1,4 +1,3 @@
-#include "BankAccount.h"
 #include "CheckingAccount.h"
 
 void CheckingAccount::withdraw(float amt) {
