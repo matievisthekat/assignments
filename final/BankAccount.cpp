@@ -5,23 +5,23 @@ BankAccount::BankAccount(float balance, float annualInterestRate) {
   this->annualInterestRate = annualInterestRate;
 }
 
-virtual void BankAccount::deposit(float amt) {
+void BankAccount::deposit(float amt) {
   balance += amt;
   numDepositsThisMonth += 1;
 }
 
-virtual void BankAccount::withdraw(float amt) {
+void BankAccount::withdraw(float amt) {
   balance -= amt;
   numWithdrawsThisMonth += 1;
 }
 
-virtual void BankAccount::calcInt() {
+void BankAccount::calcInt() {
   float monthlyInterestRate = annualInterestRate / 12;
   float monthlyInterest = balance * monthlyInterestRate;
   balance += monthlyInterest;
 }
 
-virtual void BankAccount::monthlyProc() {
+void BankAccount::monthlyProc() {
   balance -= monthlyServiceCharges;
   calcInt();
   numWithdrawsThisMonth = 0;

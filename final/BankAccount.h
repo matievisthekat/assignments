@@ -6,7 +6,7 @@ class BankAccount {
     float annualInterestRate;
     float monthlyServiceCharges;
 
-    BankAccount();
+    BankAccount(float balance, float annualInterestRate);
 
     virtual void deposit(float amt);
     virtual void withdraw(float amt);
