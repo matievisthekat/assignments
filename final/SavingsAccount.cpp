@@ -1,33 +1,28 @@
-#include "BankAccount.cpp"
+#include "SavingsAccount.h"
 
-class SavingsAccount : public BankAccount {
-  bool status = true;
+void SavingsAccount::withdraw(float amt) {
+  if (status) {
+    BankAccount::withdraw(amt);
+  }
+}
 
-  public:
-    void withdraw(float amt) {
-      if (status) {
-        BankAccount::withdraw(amt);
-      }
-    }
+void SavingsAccount::deposit(float amt) {
+  if (!status && (balance + amt) > 25) {
+    status = true;
+  }
 
-    void deposit(float amt) {
-      if (!status && (balance + amt) > 25) {
-        status = true;
-      }
+  BankAccount::deposit(amt);
+}
 
-      BankAccount::deposit(amt);
-    }
+void SavingsAccount::monthlyProc() {
+  if (numWithdrawsThisMonth > 4) {
+    int addedFee = numWithdrawsThisMonth - 4;
+    BankAccount::monthlyServiceCharges += addedFee;
+  }
 
-    void monthlyProc() {
-      if (numWithdrawsThisMonth > 4) {
-        int addedFee = numWithdrawsThisMonth - 4;
-        BankAccount::monthlyServiceCharges += addedFee;
-      }
+  BankAccount::monthlyProc();
 
-      BankAccount::monthlyProc();
-
-      if (balance < 25) {
-        status = false;
-      }
-    }
-};
+  if (balance < 25) {
+    status = false;
+  }
+}
