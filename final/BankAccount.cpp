@@ -16,7 +16,7 @@ void BankAccount::withdraw(float amt) {
 }
 
 void BankAccount::calcInt() {
-  float monthlyInterestRate = annualInterestRate / 12;
+  float monthlyInterestRate = annualInterestRate / 12; // Get the monthly interest rate
   float monthlyInterest = balance * monthlyInterestRate;
   balance += monthlyInterest;
 }
@@ -24,6 +24,7 @@ void BankAccount::calcInt() {
 void BankAccount::monthlyProc() {
   balance -= monthlyServiceCharges;
   calcInt();
+  // Reset statistics
   numWithdrawsThisMonth = 0;
   numDepositsThisMonth = 0;
   monthlyServiceCharges = 0;
