@@ -1,9 +1,9 @@
 #include "BankAccount.h"
 
 class SavingsAccount : public BankAccount {
-  bool status = true;
-
   public:
+    bool status = true;
+    
     SavingsAccount(float balance, float annualInterestRate) : BankAccount(balance, annualInterestRate) {}
 
     void withdraw(float amt);
