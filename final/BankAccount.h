@@ -1,3 +1,7 @@
+#ifndef BankAccount_H
+
+#define BankAccount_H
+
 class BankAccount {
   public:
     float balance;
@@ -13,3 +17,5 @@ class BankAccount {
     virtual void calcInt();
     virtual void monthlyProc();
 };
+
+#endif

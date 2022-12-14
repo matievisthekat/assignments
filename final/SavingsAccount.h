@@ -1,3 +1,6 @@
+#ifndef SavingsAccount_H
+#define SavingsAccount_H
+
 #include "BankAccount.h"
 
 class SavingsAccount : public BankAccount {
@@ -10,3 +13,5 @@ class SavingsAccount : public BankAccount {
     void deposit(float amt);
     void monthlyProc();
 };
+
+#endif

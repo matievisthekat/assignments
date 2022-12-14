@@ -1,3 +1,6 @@
+#ifndef CheckingAccount_H
+#define CheckingAccount_H
+
 #include "BankAccount.h"
 
 class CheckingAccount : public BankAccount {
@@ -7,3 +10,5 @@ class CheckingAccount : public BankAccount {
     void withdraw(float amt);
     void monthlyProc();
 };
+
+#endif
