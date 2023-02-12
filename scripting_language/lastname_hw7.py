@@ -17,6 +17,8 @@ def magic(matrix):
     return magic_number
 
 def main():
+    print("Determine if a Matrix is a Magic Square")
+
     squares = []
     with open("squaredata.txt", "r") as file:
         while True:
@@ -32,11 +34,19 @@ def main():
             squares.append(square)
 
     for i, sqr in enumerate(squares):
-      mag = magic(sqr)
-      if mag == -1:
-        print(f"Matrix {i + 1} is not a magic square")
-      else:
-        print(f"Matrix {i + 1} is a magic square: {mag}")
+        mag = magic(sqr)
+
+        rows, cols = sqr.shape
+
+        print(f"Square ({rows} x {cols}):")
+        print(sqr)
+
+        if mag == -1:
+            print(f"is not a magic square")
+        else:
+            print(f"is a magic square; the magic number is {mag}")
+
+        print("\n")
 
 if __name__ == '__main__':
     main()
