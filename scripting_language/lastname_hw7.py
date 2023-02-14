@@ -2,6 +2,7 @@ import numpy as np
 
 def magic(matrix):
     rows, cols = matrix.shape
+    # If the matrix is not a square
     if rows != cols:
         return -1
     magic_number = np.sum(matrix[0,:])
@@ -20,12 +21,14 @@ def main():
     print("Determine if a Matrix is a Magic Square")
 
     squares = []
+    # Open the file in read mode
     with open("squaredata.txt", "r") as file:
         while True:
           sqr = []
           for line in file:
               if line.strip() == '':
                   break;
+              # Append the new square to the list of squares  
               sqr.append(list(map(int, line.split())))
           square = np.array(sqr)
           if (square.size == 0):
@@ -33,7 +36,8 @@ def main():
           else:
             squares.append(square)
 
-    for i, sqr in enumerate(squares):
+    for sqr in squares:
+        # Call the magic function
         mag = magic(sqr)
 
         rows, cols = sqr.shape
