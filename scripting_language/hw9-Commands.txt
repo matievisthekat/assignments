@@ -1,0 +1,14 @@
+add      11 22
+DIVIDE   99 11
+Multiply 22 10001
+power    11 22
+
+sub 2 101
+divide 7 0
+Power 2 10
+ADD 123 45.67
+multiply -3 -7
+bad 1 2
+power 10 -2
+Fail
+sub 1001 1700

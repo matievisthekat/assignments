@@ -1,0 +1,6 @@
+add 1   3
+sub   3    9
+power 2  2
+divide   10   3
+exponent 3   5
+multiply    3.3333   3
