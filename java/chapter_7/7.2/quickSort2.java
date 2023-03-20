@@ -5,7 +5,9 @@
 class ArrayIns
    {
    private long[] theArray;          // ref to array theArray
-   private int nElems;               // number of data items
+   private int nElems;     
+   private int numCopies;
+   private int numComparisons;
 //--------------------------------------------------------------
    public ArrayIns(int max)          // constructor
       {
@@ -26,91 +28,96 @@ class ArrayIns
          System.out.print(theArray[j] + " ");  // display it
       System.out.println("");
       }
+
+      public void displayCounts() {
+         System.out.println("Number of copies: " + numCopies);
+         System.out.println("Number of comparisons: " + numComparisons);
+     }
 //--------------------------------------------------------------
    public void quickSort()
       {
       recQuickSort(0, nElems-1);
       }
 //--------------------------------------------------------------
-   public void recQuickSort(int left, int right)
-      {
-      int size = right-left+1;
-      if(size <= 3)                  // manual sort if small
+   public void recQuickSort(int left, int right) {
+      int size = right - left + 1;
+      if (size <= 3) {
          manualSort(left, right);
-      else                           // quicksort if large
-         {
+      } else {
          long median = medianOf3(left, right);
          int partition = partitionIt(left, right, median);
-         recQuickSort(left, partition-1);
-         recQuickSort(partition+1, right);
-         }
-      }  // end recQuickSort()
+         recQuickSort(left, partition - 1);
+         recQuickSort(partition + 1, right);
+      }
+   }
 //--------------------------------------------------------------
-   public long medianOf3(int left, int right)
-      {
-      int center = (left+right)/2;
-                                         // order left & center
-      if( theArray[left] > theArray[center] )
+   public long medianOf3(int left, int right) {
+      int center = (left + right) / 2;
+      if (theArray[left] > theArray[center]) {
          swap(left, center);
-                                         // order left & right
-      if( theArray[left] > theArray[right] )
+      }
+      if (theArray[left] > theArray[right]) {
          swap(left, right);
-                                         // order center & right
-      if( theArray[center] > theArray[right] )
+      }
+      if (theArray[center] > theArray[right]) {
          swap(center, right);
+      }
 
-      swap(center, right-1);             // put pivot on right
-      return theArray[right-1];          // return median value
-      }  // end medianOf3()
+      swap(center, right - 1);
+      return theArray[right - 1];
+   }
 //--------------------------------------------------------------
-   public void swap(int dex1, int dex2)  // swap two elements
-      {
-      long temp = theArray[dex1];        // A into temp
-      theArray[dex1] = theArray[dex2];   // B into A
-      theArray[dex2] = temp;             // temp into B
-      }  // end swap(
-//--------------------------------------------------------------
-    public int partitionIt(int left, int right, long pivot)
-       {
-       int leftPtr = left;             // right of first elem
-       int rightPtr = right - 1;       // left of pivot
+   public void swap(int dex1, int dex2) {
+      long temp = theArray[dex1];
+      theArray[dex1] = theArray[dex2];
+      theArray[dex2] = temp;
+      numCopies += 3; // increment numCopies by 3 for each swap
+   }
 
-       while(true)
-          {
-          while( theArray[++leftPtr] < pivot )  // find bigger
-             ;                                  //    (nop)
-          while( theArray[--rightPtr] > pivot ) // find smaller
-             ;                                  //    (nop)
-          if(leftPtr >= rightPtr)      // if pointers cross,
-             break;                    //    partition done
-          else                         // not crossed, so
-             swap(leftPtr, rightPtr);  // swap elements
-          }  // end while(true)
-       swap(leftPtr, right-1);         // restore pivot
-       return leftPtr;                 // return pivot location
-       }  // end partitionIt()
 //--------------------------------------------------------------
-   public void manualSort(int left, int right)
-      {
-      int size = right-left+1;
-      if(size <= 1)
-         return;         // no sort necessary
-      if(size == 2)
-         {               // 2-sort left and right
-         if( theArray[left] > theArray[right] )
-            swap(left, right);
+   public int partitionIt(int left, int right, long pivot) {
+      int leftPtr = left;
+      int rightPtr = right - 1;
+
+      while (true) {
+         while (theArray[++leftPtr] < pivot) {
+            numComparisons++; // increment numComparisons for each comparison
+         }
+         while (theArray[--rightPtr] > pivot) {
+            numComparisons++;
+         }
+         if (leftPtr >= rightPtr) {
+            break;
+         } else {
+            swap(leftPtr, rightPtr);
+         }
+      }
+      swap(leftPtr, right - 1);
+      return leftPtr;
+   }
+//--------------------------------------------------------------
+   public void manualSort(int left, int right) {
+      int size = right - left + 1;
+      if (size <= 1) {
          return;
+      }
+      if (size == 2) {
+         if (theArray[left] > theArray[right]) {
+            swap(left, right);
          }
-      else               // size is 3
-         {               // 3-sort left, center, & right
-         if( theArray[left] > theArray[right-1] )
-            swap(left, right-1);                // left, center
-         if( theArray[left] > theArray[right] )
-            swap(left, right);                  // left, right
-         if( theArray[right-1] > theArray[right] )
-            swap(right-1, right);               // center, right
+         return;
+      } else {
+         if (theArray[left] > theArray[right - 1]) {
+            swap(left, right - 1);
          }
-      }  // end manualSort()
+         if (theArray[left] > theArray[right]) {
+            swap(left, right);
+         }
+         if (theArray[right - 1] > theArray[right]) {
+            swap(right - 1, right);
+         }
+      }
+   }
 //--------------------------------------------------------------
    }  // end class ArrayIns
 ////////////////////////////////////////////////////////////////
@@ -130,6 +137,7 @@ class QuickSort2App
       arr.display();                // display items
       arr.quickSort();              // quicksort them
       arr.display();                // display them again
+      arr.displayCounts();
       }  // end main()
    }  // end class QuickSort2App
 ////////////////////////////////////////////////////////////////
