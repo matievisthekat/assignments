@@ -1,22 +1,18 @@
 import java.io.*;
 import java.util.*;
 
-class Node
-   {
+class Node {
    public int iData;
-   public double dData;
+   public char cData;
    public Node leftChild;
    public Node rightChild;
 
-   public void displayNode()
-      {
-      System.out.print('{');
-      System.out.print(iData);
-      System.out.print(", ");
-      System.out.print(dData);
-      System.out.print("} ");
-      }
+   public void displayNode() {
+       System.out.print('{');
+       System.out.print(cData);
+       System.out.print("} ");
    }
+}
 class Tree
    {
    private Node root;
@@ -28,7 +24,7 @@ class Tree
       Node current = root;
       while(current.iData != key)
          {
-         if(key < current.iData)
+         if(key < current.cData)
             current = current.leftChild;
          else
             current = current.rightChild;
@@ -38,41 +34,35 @@ class Tree
       return current;
       }
       
-   public void insert(int id, double dd)
-      {
-      Node newNode = new Node();
-      newNode.iData = id;
-      newNode.dData = dd;
-      if(root==null)
-         root = newNode;
-      else
-         {
-         Node current = root;
-         Node parent;
-         while(true)
-            {
-            parent = current;
-            if(id < current.iData)
-               {
-               current = current.leftChild;
-               if(current == null)
-                  {
-                  parent.leftChild = newNode;
-                  return;
-                  }
-               }
-            else
-               {
-               current = current.rightChild;
-               if(current == null)
-                  {
-                  parent.rightChild = newNode;
-                  return;
-                  }
-               }
-            }
+      public void insert(int id, char c) {
+         Node newNode = new Node();
+         newNode.cData = c;
+         newNode.iData = id;
+         if (root == null) {
+             root = newNode;
+         } else {
+             Node current = root;
+             Node parent;
+             while (true) {
+                 parent = current;
+                 if (current.leftChild == null) {
+                     current = current.leftChild;
+                     if (current == null) {
+                         parent.leftChild = newNode;
+                         return;
+                     }
+                 } else if (current.rightChild == null) {
+                     current = current.rightChild;
+                     if (current == null) {
+                         parent.rightChild = newNode;
+                         return;
+                     }
+                 } else {
+                     current = current.leftChild;
+                 }
+             }
          }
-      }
+     }
 
    public boolean delete(int key)
       {
@@ -208,73 +198,70 @@ class Tree
          }
       }
 
-   public void displayTree()
-      {
-      Stack globalStack = new Stack();
-      globalStack.push(root);
-      int nBlanks = 32;
-      boolean isRowEmpty = false;
-      System.out.println(
-      "......................................................");
-      while(isRowEmpty==false)
-         {
-         Stack localStack = new Stack();
-         isRowEmpty = true;
-
-         for(int j=0; j<nBlanks; j++)
-            System.out.print(' ');
-
-         while(globalStack.isEmpty()==false)
-            {
-            Node temp = (Node)globalStack.pop();
-            if(temp != null)
-               {
-               System.out.print(temp.iData);
-               localStack.push(temp.leftChild);
-               localStack.push(temp.rightChild);
-
-               if(temp.leftChild != null ||
-                                   temp.rightChild != null)
-                  isRowEmpty = false;
-               }
-            else
-               {
-               System.out.print("--");
-               localStack.push(null);
-               localStack.push(null);
-               }
-            for(int j=0; j<nBlanks*2-2; j++)
-               System.out.print(' ');
-            }  
-         System.out.println();
-         nBlanks /= 2;
-         while(localStack.isEmpty()==false)
-            globalStack.push( localStack.pop() );
-         }  
-      System.out.println(
-      "......................................................");
-      }  
-
+      public void displayTree() {
+         Stack<Node> globalStack = new Stack<>();
+         globalStack.push(root);
+         int nBlanks = 32;
+         boolean isRowEmpty = false;
+         System.out.println("......................................................................");
+ 
+         while (!isRowEmpty) {
+             Stack<Node> localStack = new Stack<>();
+             isRowEmpty = true;
+ 
+             for (int j = 0; j < nBlanks; j++) {
+                 System.out.print(' ');
+             }
+ 
+             while (!globalStack.isEmpty()) {
+                 Node temp = globalStack.pop();
+                 if (temp != null) {
+                     System.out.print(temp.cData);
+                     localStack.push(temp.leftChild);
+                     localStack.push(temp.rightChild);
+ 
+                     if (temp.leftChild != null || temp.rightChild != null) {
+                         isRowEmpty = false;
+                     }
+                 } else {
+                     System.out.print("--");
+                     localStack.push(null);
+                     localStack.push(null);
+                 }
+ 
+                 for (int j = 0; j < nBlanks * 2 - 2; j++) {
+                     System.out.print(' ');
+                 }
+             }
+             System.out.println();
+             nBlanks /= 2;
+             while (!localStack.isEmpty()) {
+                 globalStack.push(localStack.pop());
+             }
+         }
+         System.out.println("......................................................................");
+     }
    }
 
 class TreeApp
    {
    public static void main(String[] args) throws IOException
       {
-      int value;
+      char value;
+      int id;
       Tree theTree = new Tree();
 
-      theTree.insert(54, 1.5);
-      theTree.insert(23, 1.2);
-      theTree.insert(99, 1.7);
-      theTree.insert(12, 1.5);
-      theTree.insert(78, 1.2);
-      theTree.insert(90, 1.7);
-      theTree.insert(2, 1.5);
-      theTree.insert(100, 1.2);
-      theTree.insert(43, 1.7);
-      theTree.insert(77, 1.5);
-      theTree.insert(11, 1.5);
+      theTree.insert(54, 'A');
+      theTree.insert(23, 'B');
+      theTree.insert(99, 'C');
+      theTree.insert(12, 'D');
+      theTree.insert(78, 'E');
+      theTree.insert(90, 'F');
+      theTree.insert(2, 'G');
+      theTree.insert(100, 'H');
+      theTree.insert(43, 'I');
+      theTree.insert(77, 'J');
+      theTree.insert(11, 'K');
       while(true)
          {
          System.out.print("Enter first letter of show, ");
@@ -287,13 +274,15 @@ class TreeApp
                break;
             case 'i':
                System.out.print("Enter value to insert: ");
-               value = getInt();
-               theTree.insert(value, value + 0.9);
+               value = getChar();
+               System.out.print("Enter id for that value: ");
+               id = getInt();
+               theTree.insert(id, value);
                break;
             case 'f':
-               System.out.print("Enter value to find: ");
-               value = getInt();
-               Node found = theTree.find(value);
+               System.out.print("Enter id to find: ");
+               id = getInt();
+               Node found = theTree.find(id);
                if(found != null)
                   {
                   System.out.print("Found: ");
@@ -302,21 +291,21 @@ class TreeApp
                   }
                else
                   System.out.print("Could not find ");
-                  System.out.print(value + '\n');
+                  System.out.print(id + '\n');
                break;
             case 'd':
                System.out.print("Enter value to delete: ");
-               value = getInt();
-               boolean didDelete = theTree.delete(value);
+               id = getInt();
+               boolean didDelete = theTree.delete(id);
                if(didDelete)
-                  System.out.print("Deleted " + value + '\n');
+                  System.out.print("Deleted " + id + '\n');
                else
                   System.out.print("Could not delete ");
-                  System.out.print(value + '\n');
+                  System.out.print(id + '\n');
                break;
             case 't':
                System.out.print("Enter type 1, 2 or 3: ");
-               value = getInt();
+               value = getChar();
                theTree.traverse(value);
                break;
             default:
@@ -345,5 +334,4 @@ class TreeApp
       return Integer.parseInt(s);
       }
 
-   }  
-
+   }
